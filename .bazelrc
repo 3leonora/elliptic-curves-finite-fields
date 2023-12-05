@@ -1,0 +1,8 @@
+build --cxxopt=-std=c++20
+build --cxxopt=-O3
+build --cxxopt=-Wall
+
+# You could place the below in your $HOME/.bazelrc if you want to always build using clang.
+# build --config=k8_clang
+build:k8_clang --crosstool_top=//toolchain:clang_suite
+
