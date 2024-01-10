@@ -1,4 +1,13 @@
+
+#include <primefield/montgomery.hpp>
+
 #include <gtest/gtest.h>
+
+#include <cstdint>
+#include <format>
+#include <ios>
+
+using primefield::MontgomeryField;
 
 //
 // For later:
@@ -8,9 +17,17 @@
 //        this opens up for compact repr of list of consequtive
 //        primes in a sieve!
 
-TEST(Inverse, Montgomery) {
-  EXPECT_STRNE("hello", "world");
-  EXPECT_EQ(7 * 6, 42);
+TEST(Montgomery, Basic) {
+  uint16_t p = 19;
+  auto mg = MontgomeryField(p);
+  for (int i=1; i<p; i++) {
+    for (int j=1; j<p; j++) {
+      EXPECT_EQ(
+        (mg.form(i) * mg.form(j) * mg._Rinv) % p,
+        mg.form(i * j)
+      );
+    }
+  }
 
-  
+
 }

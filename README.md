@@ -11,10 +11,7 @@ Informative papers on the topic:
 
 This project aims for building and running on Linux and MacOS systems. The bazel build tool need to be downloaded and installed. Instructions can be found on [this page](https://bazel.build/install).
 
-There is some support for switching out the default g++ toolchain on Linux amd64 (k8) architectures with clang by using `--config=k8_clang` option while building. This could be made the default on Linux by placing this line in *$HOME/.bazelrc*:
-
-     build --config=k8_clang
-
+For now this project uses C++20 and one might have to download and install the clang compiler toolchain version 16 or higher. See the .bazelrc in the project root for how one can change the default C++ toochain to use.
 
 ### Example build invocations
 
@@ -29,6 +26,8 @@ Compile the primefield cc_library on Linux using clang
 Clean the build (prepare for the next build with -s). Normally not needed. This will trigger a rebuild of the google test framework as well (it will not remove the download of it however):
 
     bazel clean
+
+Cleaning might complain about the unorthodox way of configuring the toolchain.
 
 Build all tests and show the actual tool invocations on stdout:
 

@@ -5,3 +5,4 @@
 *.pyc*
 bazel-*
 *.log
+*.out

@@ -1,5 +1,5 @@
-#ifndef _PRIMEFIELD_EXCEPTION_HPP
-#define _PRIMEFIELD_EXCEPTION_HPP
+#ifndef PRIMEFIELD_EXCEPTION_HPP
+#define PRIMEFIELD_EXCEPTION_HPP
 //
 // primefield/exception.hpp
 //// Exception types used in the primefield package
@@ -13,6 +13,15 @@ class NotImplementedError: public std::runtime_error
     using runtime_error::runtime_error;
 };
 
+class IterationError: public std::runtime_error
+{
+    using runtime_error::runtime_error;
+};
+
+class LiteralSyntax: public std::runtime_error
+{
+    using runtime_error::runtime_error;
+};
 
 class NoInverseError : public std::range_error
 {
@@ -21,4 +30,4 @@ class NoInverseError : public std::range_error
 
 } // namespace primefield
 
-#endif // _PRIMEFIELD_EXCEPTION_HPP
+#endif // PRIMEFIELD_EXCEPTION_HPP

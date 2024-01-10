@@ -5,7 +5,8 @@ cc_library(
         "primefield/traits.hpp",
         "primefield/exception.hpp",
         "primefield/inverse.hpp",
-
+        "primefield/uint128.hpp",
+        "primefield/montgomery.hpp",
     ],
     # The includes below makes it so that clients of this library
     # can skip the src/libs prefix when including header files

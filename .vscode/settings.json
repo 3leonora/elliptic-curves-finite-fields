@@ -3,7 +3,8 @@
     "C_Cpp.clang_format_style": "file",
     "files.associations": {
         "exception": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "numbers": "cpp"
     },
     "C_Cpp.default.cppStandard": "c++20",
     "C_Cpp.default.includePath": [
@@ -12,6 +13,14 @@
     "cSpell.words": [
         "bazel",
         "bazelrc",
-        "primefield"
+        "crosstool",
+        "cxxopt",
+        "hexflg",
+        "maxuint",
+        "pipow",
+        "primefield",
+        "primegaps",
+        "uinvert",
+        "ulll"
     ]
 }

@@ -1,5 +1,5 @@
-#ifndef _PRIMEFIELD_TRAITS_HPP
-#define _PRIMEFIELD_TRAITS_HPP
+#ifndef PRIMEFIELD_TRAITS_HPP
+#define PRIMEFIELD_TRAITS_HPP
 //
 // primefield/traits.hpp
 //
@@ -54,4 +54,4 @@ namespace primefield
 
 } // namespace primefield
 
-#endif _PRIMEFIELD_TRAITS_HPP
+#endif PRIMEFIELD_TRAITS_HPP
