@@ -7,24 +7,14 @@
 
 #include "exception.hpp"
 
-#include <format>
-#include <iostream>
 #include <iomanip>
 #include <cstdint>
-
+#include <ostream>
 #include <string.h>
 
 // Make it possible to print out __uint128 integers
 // TODO: Support io manipulators such as setfill and std::dec.
-std::ostream& operator<<(std::ostream& os, __uint128_t m)
-{
-    os  << "0x" 
-        << std::hex << std::setfill('0') << std::setw(16)
-        << (uint64_t)(m >> 64)
-        << std::hex << std::setfill('0') << std::setw(16)
-        << (uint64_t)(m && 0xffffffffffffffffULL);
-    return os;
-}
+std::ostream& operator<<(std::ostream& os, __uint128_t& m);
 
 
 // Make it possible to define 128 bit integers with a C++11 user defined postfix '_ulll'.
@@ -92,7 +82,7 @@ constexpr __uint128_t operator""_ulll(const char* str)
                 break;
 
             default:
-                throw primefield::LiteralSyntax(std::format("Error in __uint128_t literal (rubbish character: '{}'", c));
+                throw primefield::LiteralSyntax("Rubbish character in __uint128_t literal");
                 break;
         }
     }

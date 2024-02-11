@@ -4,10 +4,9 @@
 // Calculate the inverse of an element given prime field order p
 
 #include <primefield/exception.hpp>
-#include <format>
+#include <primefield/uint128.hpp>
 #include <limits>
-
-using std::format;
+#include <sstream>
 
 namespace primefield
 {
@@ -41,7 +40,9 @@ namespace primefield
         y +=  q * x;
       }
 
-      throw NoInverseError(format("uinverse({}, {}) non existent", e, N));
+      std::ostringstream errmsg;
+      errmsg << "uinverse(" << e << ", " << N << ") non existent";
+      throw NoInverseError(errmsg.str());
   }
 
   // Find inverse of odd numbers module 2**s where 2**s-1 is maximal value of UINT
@@ -62,7 +63,7 @@ namespace primefield
       b = -(a * q);
       x += q * y;
 
-      while(true) 
+      while(true)
       {
         if (b == 1) { return -x; }
         if (b == 0) { break; } // -> error
@@ -79,12 +80,14 @@ namespace primefield
         x += q * y;
       }
 
-      throw NoInverseError(format("uinverse({}) no inverse mod {}", e, 1 + std::numeric_limits<UINT>::max()));
+      std::ostringstream errmsg;
+      errmsg << "uinverse(" << e << ") no inverse mod " << 1 + std::numeric_limits<UINT>::max();
+      throw NoInverseError(errmsg.str());
   }
 
   // TODO: Modular inverse using the extended Euclidian algorithm on
   // https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Computing_multiplicative_inverses_in_modular_structures
-  // This algorithm has to work with signed integers. 
+  // This algorithm has to work with signed integers.
 
 }
 

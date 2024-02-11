@@ -1,6 +1,24 @@
-build --cxxopt=-std=c++20
-build --cxxopt=-O3
-build --cxxopt=-Wall
+# Enable the 'windows', 'macos' or 'linux' automatic config
+common --enable_platform_specific_config
+
+build:linux --cxxopt=--std=c++20
+build:linux --cxxopt=--O3
+build:linux --cxxopt=-Wall
+
+
+build:macos --cxxopt=--std=c++20
+build:macos --cxxopt=--O3
+build:macos --cxxopt=-Wall
+
+# Flags when using vs clang. Activate in %HOME%/.bazelrc
+# See https://bazel.build/configure/windows#clang for background to the below.
+# BAZEL_LLVM variable can be set in %HOME%/.bazelrc
+build:clang-cl --extra_execution_platforms=//toolchain:x64_windows-clang-cl
+build:clang-cl --extra_toolchains=@local_config_cc//:cc-toolchain-x64_windows-clang-cl
+build:clang-cl --cxxopt=/std:c++20
+build:clang-cl --cxxopt=/O2
+build:clang-cl --cxxopt=-Wno-c++98-compat
+
 
 # Use --config elliptic to control more what toolchain to use
 build:elliptic --crosstool_top=//toolchain:clang_suite
@@ -8,11 +26,11 @@ build:elliptic --crosstool_top=//toolchain:clang_suite
 # | Example: In your $HOME/.bazelrc you could do something like the below
 # | to point out side installs of the clang toolchain
 # -- Linux/Fedora:
-# build --config=elliptic
+build --config=elliptic
 # build:elliptic --//toolchain:clang_prefix=/usr
 # build:elliptic --//toolchain:system_includes=/usr/lib64/clang/16/include
 # -- MacOS:
 # build --config=elliptic
 # build:elliptic --//toolchain:clang_prefix= TBD
 # build:elliptic --//toolchain:system_includes= TBD
- 
+

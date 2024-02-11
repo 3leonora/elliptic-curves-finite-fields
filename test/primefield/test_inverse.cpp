@@ -14,7 +14,8 @@ TEST(Inverse, BasicUInvert)
 {
   EXPECT_EQ(uinvert(14, 31), 20);
   EXPECT_EQ(uinvert(2U, 4294967291U), 2147483646U);
-  EXPECT_EQ(uinvert(2UL, 18361375334787046697UL), 9180687667393523349UL);
+  // Needed the cast below on Windows clang-cl (ver. 16)
+  EXPECT_EQ(uinvert((uint64_t)2UL, (uint64_t)18361375334787046697UL), 9180687667393523349UL);
   EXPECT_THROW(uinvert(6, 21), primefield::NoInverseError);
 }
 

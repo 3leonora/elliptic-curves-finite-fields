@@ -50,8 +50,8 @@ namespace primefield
   struct make_next_rank<uint64_t> {
     typedef unsigned __int128 utype;
     typedef __int128 stype;   // Will not mark as signed in traits it seems...
-  };  
+  };
 
 } // namespace primefield
 
-#endif PRIMEFIELD_TRAITS_HPP
+#endif // PRIMEFIELD_TRAITS_HPP

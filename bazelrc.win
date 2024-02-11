@@ -1,0 +1,10 @@
+
+# Activate repo's clang-cl settings
+build:elliptic --config=clang-cl
+
+# Tell where vs llvm install resides.
+# See https://bazel.build/configure/windows#clang
+build:elliptic "--action_env=BAZEL_LLVM=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\Llvm\\x64"
+
+# Add path to the install's misc helper libs:
+build:elliptic --linkopt='"/libpath:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/Llvm/x64/lib/clang/16/lib/windows"'

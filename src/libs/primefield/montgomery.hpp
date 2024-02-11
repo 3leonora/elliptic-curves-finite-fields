@@ -9,6 +9,7 @@
 
 #include "inverse.hpp"
 #include "traits.hpp"
+#include <sstream>
 
 #include <cstdint>
 
@@ -25,7 +26,7 @@ namespace primefield
     MontgomeryField(UINT base);
 
     UINT form(UINT e);  // Calculate the Montgomery form e * 2^s mod base
-    
+
     UINT _N;    // The modulo we work in
     UINT _Np;   // N * Np = -1 mod R
     UINT _Rinv; // The inverse mod _base of the 2^s (maxint+1)
@@ -51,7 +52,7 @@ namespace primefield
   UINT MontgomeryField<UINT>::form(UINT e)
   {
     using UINT2 = make_next_rank_t<UINT>;
-    UINT2 t = e << (8 * sizeof(UINT));
+    UINT2 t = e << ((UINT)8 * sizeof(UINT));
     return t % _N;
   }
 
