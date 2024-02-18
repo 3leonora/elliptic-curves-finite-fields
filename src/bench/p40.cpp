@@ -8,13 +8,16 @@
 #include <cstdint>
 #include <cmath>
 
+#include <profiling/logger.hpp>
+
 using std::vector;
 using std::cout;
 using std::endl;
 using std::sqrt;
+using profiling::Logger;
 
 // For p = 2**38 < 304,599,508,537 < 2**39 the gaps are bigger than 512 requiring
-// additive storing of primes larger than uint8_t.
+// differential storing of primes larger than uint8_t.
 
 // 2**64 ~< 2*1e19. pi(1e19) ~ 2.3e17
 // 2**40 ~> 1e12.   pi(1e12) ~ 3.8e10
@@ -30,17 +33,16 @@ static std::string now()
 }
 
 // Calculate pi(n) for n=2**s up to 2**40.
-std::vector<uint8_t> basic_sieve40(uint64_t siz)
+std::vector<uint8_t> basic_sieve40(uint64_t siz, Logger& logger)
 {
-    cout << now() << std::format(": Start basic_sieve40({})", siz) << endl;
     // No use sieving with primes higher than lim
     uint32_t lim = (int)sqrt((double)siz + 1.0);
     std::vector<bool> bits((siz+1)/2); // Skip storing bits for even numbers
     std::vector<uint8_t> primegaps; // Should prealloc according to some density formula...
     primegaps.push_back(2);
     uint64_t num_primes=1;
-    
-    // Remove later. For writing out different values of pi to verify against 
+
+    // Remove later. For writing out different values of pi to verify against
     // https://en.wikipedia.org/wiki/Prime-counting_function
 
     uint64_t pi_check = 10; // next 10-power to output pi(n) for.
@@ -54,7 +56,7 @@ std::vector<uint8_t> basic_sieve40(uint64_t siz)
         if (!bits[pos]) {
             // Next prime found.
             if (n > pi_check) {
-                std::cout << now() << ": " << std::format("pi({}) = {} ({})", pi_check, num_primes, latest_prime) << endl;
+                logger << std::format("pi({}) = {} ({})", pi_check, num_primes, latest_prime) << endl;
                 pi_check *= 10;
             }
             num_primes++;
@@ -79,12 +81,12 @@ std::vector<uint8_t> basic_sieve40(uint64_t siz)
         if (!bits[pos]) {
             n = 2*pos + 1;
             if (n > pi_check) {
-                std::cout << now() << ": " << std::format("pi({}) = {} ({})", pi_check, num_primes, latest_prime) << endl;
+                logger << std::format("pi({}) = {} ({})", pi_check, num_primes, latest_prime) << endl;
                 pi_check *= 10;
-            }            
+            }
             num_primes++;
             primegaps.push_back(n - latest_prime);
-            latest_prime = n;  
+            latest_prime = n;
         }
         pos++;
     }
@@ -95,7 +97,8 @@ std::vector<uint8_t> basic_sieve40(uint64_t siz)
 
 int main(int arc, char **argv)
 {
-    auto gaps = basic_sieve40(10'000'100'000);
+    Logger logger("basic_sieve40");
+    auto gaps = basic_sieve40(100'000'100'000, logger);
     /*
     uint64_t p = 0;
     for (auto gap: gaps) {

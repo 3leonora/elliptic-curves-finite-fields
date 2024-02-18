@@ -6,3 +6,4 @@
 bazel-*
 *.log
 *.out
+*.lock
