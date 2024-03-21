@@ -88,12 +88,15 @@
         "bazelrc",
         "crosstool",
         "cxxopt",
+        "Hasse's",
         "hexflg",
         "maxuint",
         "pipow",
         "primefield",
         "primegaps",
+        "sievenwords",
         "uinvert",
         "ulll"
-    ]
+    ],
+    "cmake.configureOnOpen": false
 }

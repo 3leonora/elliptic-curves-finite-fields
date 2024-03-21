@@ -3,6 +3,7 @@ cc_binary(
     deps = [
         "//src/libs:primefield",
         "//src/libs:profiling",
+        "@clockwork//:modular_arithmetic",
     ],
     srcs = [
         "p40.cpp",

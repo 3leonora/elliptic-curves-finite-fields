@@ -23,12 +23,14 @@ TEST(Traits, IncRank)
   using t16 = uint16_t;
   // Test that sizes of an increased rank is as expected!
   EXPECT_EQ(sizeof(make_next_rank_t<uint8_t>), 2);
+  EXPECT_EQ(sizeof(make_next_signed_rank_t<uint8_t>), 2);
   EXPECT_EQ(sizeof(make_next_rank_t<uint16_t>), 4);
+  EXPECT_EQ(sizeof(make_next_signed_rank_t<uint16_t>), 4);
   EXPECT_EQ(sizeof(make_next_rank_t<t16>), 4);
   EXPECT_EQ(sizeof(make_next_rank_t<uint32_t>), 8);
-  EXPECT_EQ(sizeof(make_next_rank_t<uint64_t>), 16);
-  EXPECT_EQ(sizeof(make_next_signed_rank_t<uint8_t>), 2);
-  EXPECT_EQ(sizeof(make_next_signed_rank_t<uint16_t>), 4);
   EXPECT_EQ(sizeof(make_next_signed_rank_t<uint32_t>), 8);
+#ifdef __clang__
+  EXPECT_EQ(sizeof(make_next_rank_t<uint64_t>), 16);
   EXPECT_EQ(sizeof(make_next_signed_rank_t<uint64_t>), 16);
+#endif
 }

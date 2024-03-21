@@ -31,7 +31,7 @@ namespace profiling {
         auto ms = std::chrono::duration_cast<MS>(
             std::chrono::steady_clock::now() - _reset_time).count();
         auto secs = ms / 1000;
-        auto minutes = secs / (60 * 1000);
+        auto minutes = secs / 60;
         auto hours = minutes / 60;
         auto days = hours / 24;
         oss << std::format("{:02}:{:02}:{:02}:{:02}:{:03}",

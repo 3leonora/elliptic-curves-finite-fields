@@ -1,0 +1,15 @@
+diff --git a/include/hurchalla/util/programming_by_contract.h b/include/hurchalla/util/programming_by_contract.h
+index 4baf5bf..a8a9b06 100644
+--- a/include/hurchalla/util/programming_by_contract.h
++++ b/include/hurchalla/util/programming_by_contract.h
+@@ -247,7 +247,9 @@ Ordinarily, you shouldn't change anything in this file.
+ #  if defined(__GNUC__) && !defined(__clang__)
+ #    pragma GCC diagnostic pop
+ #  endif
+-#  ifdef _MSC_VER
++#  ifdef NDEBUG
++#    define HPBC_CONSTEXPR_ASSERT(...)
++#  elif defined(_MSC_VER)
+ #    define HPBC_CONSTEXPR_ASSERT(...) ((void)(HURCHALLA_LIKELY(__VA_ARGS__) ? \
+                              (void)0 : hurchalla_hpbc_forward_lambda( \
+                              [](){ assert(!#__VA_ARGS__);}), (void)0))

@@ -25,3 +25,11 @@ cc_library(
     includes = [""],
     visibility = ["//visibility:public"],
 )
+
+cc_library(
+    name = "schedule",
+    srcs = glob(["schedule/*.cpp"]),
+    hdrs = glob(["schedule/*.hpp"]),
+    includes = [""],
+    visibility = ["//visibility:public"],
+)

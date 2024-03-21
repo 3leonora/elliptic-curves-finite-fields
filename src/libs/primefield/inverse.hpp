@@ -45,7 +45,7 @@ namespace primefield
       throw NoInverseError(errmsg.str());
   }
 
-  // Find inverse of odd numbers module 2**s where 2**s-1 is maximal value of UINT
+  // Find inverse of odd numbers modulo 2**s where 2**s-1 is maximal value of UINT
   // This version avoids using higher rank types.
   template <typename UINT>
   UINT uinvert(UINT e)
@@ -85,10 +85,30 @@ namespace primefield
       throw NoInverseError(errmsg.str());
   }
 
+  // Another algorithm for modular inverse of odd numbers in 2^64 modulo
+  // (Newton's method)
+  // See: https://lemire.me/blog/2017/09/18/computing-the-inverse-of-odd-integers/
+  // This seems at least 15x quicker than the uinvert.
+  // TODO: generalize this and replace the uinvert above...
+
+  inline uint64_t f64(uint64_t x, uint64_t y)
+  {
+      return y * (2 - y * x);
+  }
+
+  inline uint64_t findInverse64(uint64_t x)
+  {
+      uint64_t y = (3 * x) ^ 2; // 5 bits
+      y = f64(x, y);            // 10 bits
+      y = f64(x, y);            // 20 bits
+      y = f64(x, y);            // 40 bits
+      y = f64(x, y);            // 80 bits
+      return y;
+  }
+
   // TODO: Modular inverse using the extended Euclidian algorithm on
   // https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Computing_multiplicative_inverses_in_modular_structures
   // This algorithm has to work with signed integers.
-
 }
 
 #endif // PRIMEFIELD_INVERSE_HPP

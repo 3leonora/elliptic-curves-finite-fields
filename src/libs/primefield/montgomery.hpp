@@ -25,7 +25,10 @@ namespace primefield
     // ctor
     MontgomeryField(UINT base);
 
-    UINT form(UINT e);  // Calculate the Montgomery form e * 2^s mod base
+    UINT form(UINT e); // Calculate the Montgomery form e * 2^s mod base
+
+    // Montgomery reduction. Combine the *R' mod N operation in one go.
+    // UINT redc(UINT e); //
 
     UINT _N;    // The modulo we work in
     UINT _Np;   // N * Np = -1 mod R

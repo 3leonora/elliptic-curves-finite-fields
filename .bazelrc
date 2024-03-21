@@ -18,15 +18,24 @@ build:clang-cl --extra_toolchains=@local_config_cc//:cc-toolchain-x64_windows-cl
 build:clang-cl --cxxopt=/std:c++20
 build:clang-cl --cxxopt=/O2
 build:clang-cl --cxxopt=-Wno-c++98-compat
+build:clang-cl --cxxopt=-DNDEBUG
+
+#build:windows --extra_execution_platforms=//toolchain:x64_windows-clang-cl
+#build:windows --extra_toolchains=@local_config_cc//:cc-toolchain-x64_windows-clang-cl
+#build:windows --features=-default_compile_flags
+build:windows --cxxopt=/std:c++20
+build:windows --cxxopt=/Ox
+#build:windows --cxxopt=-Wno-c++98-compat
+build:windows --cxxopt=-DNDEBUG
 
 
 # Use --config elliptic to control more what toolchain to use
-build:elliptic --crosstool_top=//toolchain:clang_suite
+build:linux --crosstool_top=//toolchain:clang_suite
 
 # | Example: In your $HOME/.bazelrc you could do something like the below
 # | to point out side installs of the clang toolchain
 # -- Linux/Fedora:
-build --config=elliptic
+# build --config=elliptic
 # build:elliptic --//toolchain:clang_prefix=/usr
 # build:elliptic --//toolchain:system_includes=/usr/lib64/clang/16/include
 # -- MacOS:

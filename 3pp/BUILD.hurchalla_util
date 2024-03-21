@@ -1,0 +1,12 @@
+# https://github.com/hurchalla/util/
+
+
+cc_library(
+    name = "util",
+    hdrs = glob([
+        "include/hurchalla/**/*.h",
+    ]),
+    includes = [""],
+    visibility = ["//visibility:public"],
+    strip_include_prefix = "include/",
+)

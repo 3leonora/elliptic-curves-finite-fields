@@ -1,3 +1,4 @@
+#ifdef __clang__
 #include "uint128.hpp"
 
 std::ostream& operator<<(std::ostream& os, __uint128_t& m)
@@ -9,3 +10,4 @@ std::ostream& operator<<(std::ostream& os, __uint128_t& m)
         << (uint64_t)(m & 0xffffffffffffffffULL);
     return os;
 }
+#endif

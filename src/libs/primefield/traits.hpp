@@ -45,12 +45,21 @@ namespace primefield
     typedef int64_t stype;
   };
 
+#ifdef __clang__
   // Specialization for uint64_t
   template<>
   struct make_next_rank<uint64_t> {
     typedef unsigned __int128 utype;
     typedef __int128 stype;   // Will not mark as signed in traits it seems...
   };
+#else
+  // Broken Specialization for uint64_t on MSVC
+  template<>
+  struct make_next_rank<uint64_t> {
+    typedef uint64_t utype;
+    typedef int64_t stype;   // Will not mark as signed in traits it seems...
+  };
+#endif
 
 } // namespace primefield
 

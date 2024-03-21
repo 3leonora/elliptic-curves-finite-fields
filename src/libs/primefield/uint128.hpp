@@ -5,12 +5,16 @@
 //
 //      Utilities to deal with the inofficial __uint128_t type
 
+#ifdef __clang__
+// Only support 128-bit intrinsic type with clang
+
 #include "exception.hpp"
 
 #include <iomanip>
 #include <cstdint>
 #include <ostream>
 #include <string.h>
+
 
 // Make it possible to print out __uint128 integers
 // TODO: Support io manipulators such as setfill and std::dec.
@@ -90,5 +94,5 @@ constexpr __uint128_t operator""_ulll(const char* str)
     return res;
 }
 
-
+#endif // __clang__
 #endif // UINT128_HPP

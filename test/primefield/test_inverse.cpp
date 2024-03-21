@@ -7,6 +7,7 @@
 #include <format>
 
 using primefield::uinvert;
+using primefield::findInverse64;
 using primefield::make_next_rank_t;
 using std::format;
 
@@ -33,6 +34,7 @@ TEST(Inverse, TwoPowInverse)
 }
 
 
+#ifdef __clang__
 TEST(Inverse, CanHandle128BitInteger)
 {
   // No literal support for 128 bit integers. We could develop one ourself...
@@ -47,6 +49,7 @@ TEST(Inverse, CanHandle128BitInteger)
   EXPECT_EQ(0x1234abcd, 0X1234abcd_ulll);
   EXPECT_EQ(0x1234abcd, 0X1234AbCd_ulll);
 }
+#endif
 
 
 TEST(Inverse, UInvertExtensive)
@@ -71,3 +74,34 @@ TEST(Inverse, UInvertExtensive)
     ASSERT_EQ((e_inv * e) % m, 1);
   }
 }
+
+TEST(Inverse, OddInverse64_1)
+{
+    // Test the uinvert for 64-bit
+    using Uxx = uint64_t;
+    Uxx sum = 0;
+
+    for (Uxx e = 3; e < 100'000'000; e += 2)
+    {
+        Uxx e_inv = uinvert(e);
+        sum += e_inv;
+        // ASSERT_EQ(1, e_inv * e);
+    }
+    ASSERT_EQ(sum, 12219767026090819583LLU);
+}
+
+TEST(Inverse, OddInverse64_2)
+{
+    // Test the newton  for 64-bit
+    using Uxx = uint64_t;
+    Uxx sum = 0;
+
+    for (Uxx e = 3; e < 100'000'000; e += 2)
+    {
+        Uxx e_inv = findInverse64(e);
+        sum += e_inv;
+        // ASSERT_EQ(1, e_inv * e);
+    }
+    ASSERT_EQ(sum, 12219767026090819583LLU);
+}
+

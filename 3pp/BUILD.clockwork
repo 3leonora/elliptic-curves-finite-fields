@@ -1,0 +1,29 @@
+# https://github.com/hurchalla/modular_arithmetic/
+
+cc_library(
+    name = "modular_arithmetic",
+    hdrs = glob([
+        "modular_arithmetic/include/**/*.h",
+    ]),
+    includes = [""],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@hurchalla_util//:util",
+    ],
+    strip_include_prefix = "modular_arithmetic/include/",
+)
+
+cc_library(
+    name = "montgomery_arithmetic",
+    hdrs = glob([
+        "montgomery_arithmetic/include/**/*.h",
+    ]),
+    includes = [""],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@hurchalla_util//:util",
+        ":modular_arithmetic",
+    ],
+    strip_include_prefix = "montgomery_arithmetic/include/",
+)
+
